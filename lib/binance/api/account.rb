@@ -31,7 +31,7 @@ module Binance
         def get_user_balance!(api_key: nil, api_secret_key: nil)
             timestamp = Configuration.timestamp
             params = { timestamp: timestamp, type: 'SPOT' }
-            Request.send!(api_key_type: :read_info, path: "GET /sapi/v1/accountSnapshot",
+            Request.send!(api_key_type: :read_info, path: "/sapi/v1/accountSnapshot",
                           params: params.delete_if { |key, value| value.nil? },
                           api_key: api_key, api_secret_key: api_secret_key)
         end        
