@@ -28,6 +28,14 @@ module Binance
                         security_type: :user_data, api_key: api_key, api_secret_key: api_secret_key)
         end
 
+        def get_user_balance!(api_key: nil, api_secret_key: nil)
+            timestamp = Configuration.timestamp
+            params = { timestamp: timestamp, type: 'SPOT' }
+            Request.send!(api_key_type: :read_info, path: "GET /sapi/v1/accountSnapshot",
+                          params: params.delete_if { |key, value| value.nil? },
+                          api_key: api_key, api_secret_key: api_secret_key)
+        end        
+
         # @note have not tested this for binance.us yet.
         def withdraw!(coin: nil, withdrawOrderId: nil, network: nil, address: nil, addressTag: nil, amount: nil,
                       transactionFeeFlag: false, name: nil, recvWindow: nil, api_key: nil, api_secret_key: nil)
